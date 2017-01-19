@@ -3,7 +3,7 @@ PianoView
 
 Fully custumisable piano keyboard view with `@IBDesignable` properties in swift.
 
-![alt tag]()
+![alt tag](https://github.com/cemolcay/PianoView/blob/master/demo.png?raw=true)
 
 Usage
 ----
