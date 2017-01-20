@@ -32,7 +32,6 @@ public enum PianoKeyType {
 public class PianoKeyLayer: CALayer {
   public var note: Note
   public var isSelected = false
-  public var selectedColor = UIColor.lightGray
   public var textLayer = CATextLayer()
 
   public var type: PianoKeyType {
@@ -51,6 +50,13 @@ public class PianoKeyLayer: CALayer {
     super.init(coder: aDecoder)
     addSublayer(textLayer)
     textLayer.contentsScale = NSScreen.main()?.backingScaleFactor ?? 1
+  }
+
+  public override init(layer: Any) {
+    note = Note(midiNote: 0)
+    super.init(layer: layer)
+    addSublayer(textLayer)
+    textLayer.contentsScale = UIScreen.main.scale
   }
 }
 
