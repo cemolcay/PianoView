@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Mac/Mac.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:PianoView.xcodeproj">
    </FileRef>
    <FileRef
