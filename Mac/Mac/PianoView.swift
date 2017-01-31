@@ -32,6 +32,9 @@ public enum PianoKeyType {
 public class PianoKeyLayer: CALayer {
   public var note: Note
   public var isSelected = false
+  public var isHighlighted = false
+
+  public var highlightLayer = CALayer()
   public var textLayer = CATextLayer()
 
   public var type: PianoKeyType {
@@ -41,22 +44,25 @@ public class PianoKeyLayer: CALayer {
   public init(note: Note) {
     self.note = note
     super.init()
-    addSublayer(textLayer)
-    textLayer.contentsScale = NSScreen.main()?.backingScaleFactor ?? 1
+    commonInit()
   }
 
   public required init?(coder aDecoder: NSCoder) {
     note = Note(midiNote: 0)
     super.init(coder: aDecoder)
-    addSublayer(textLayer)
-    textLayer.contentsScale = NSScreen.main()?.backingScaleFactor ?? 1
+    commonInit()
   }
 
   public override init(layer: Any) {
     note = Note(midiNote: 0)
     super.init(layer: layer)
+    commonInit()
+  }
+
+  private func commonInit() {
+    addSublayer(highlightLayer)
     addSublayer(textLayer)
-    textLayer.contentsScale = UIScreen.main.scale
+    textLayer.contentsScale = NSScreen.main()?.backingScaleFactor ?? 1
   }
 }
 
@@ -86,14 +92,16 @@ public class PianoView: UIView {
   @IBInspectable public var blackKeyBackgroundColor: UIColor = .black { didSet{ draw() }}
   @IBInspectable public var whiteKeySelectedColor: UIColor = .lightGray { didSet{ draw() }}
   @IBInspectable public var blackKeySelectedColor: UIColor = .darkGray { didSet{ draw() }}
+  @IBInspectable public var whiteKeyHighlightedColor: UIColor = .green { didSet{ draw() }}
+  @IBInspectable public var blackKeyHighlightedColor: UIColor = .green { didSet{ draw() }}
   @IBInspectable public var whiteKeyBorderColor: UIColor = .black { didSet{ draw() }}
   @IBInspectable public var blackKeyBorderColor: UIColor = .black { didSet{ draw() }}
   @IBInspectable public var whiteKeyBorderWidth: CGFloat = 1 { didSet{ draw() }}
   @IBInspectable public var blackKeyBorderWidth: CGFloat = 0 { didSet{ draw() }}
   @IBInspectable public var whiteKeyTextColor: UIColor = .black { didSet{ draw() }}
   @IBInspectable public var blackKeyTextColor: UIColor = .white { didSet{ draw() }}
-  @IBInspectable public var whiteKeySelectedTextColor: UIColor = .lightGray { didSet{ draw() }}
-  @IBInspectable public var blackKeySelectedTextColor: UIColor = .darkGray { didSet{ draw() }}
+  @IBInspectable public var whiteKeySelectedTextColor: UIColor = .white { didSet{ draw() }}
+  @IBInspectable public var blackKeySelectedTextColor: UIColor = .black { didSet{ draw() }}
   @IBInspectable public var whiteKeyFontSize: CGFloat = 15 { didSet{ draw() }}
   @IBInspectable public var blackKeyFontSize: CGFloat = 15 { didSet{ draw() }}
   @IBInspectable public var whiteKeyTextTreshold: CGFloat = 5 { didSet{ draw() }}
@@ -144,6 +152,7 @@ public class PianoView: UIView {
       switch key.type {
       case .black:
         key.backgroundColor = key.isSelected ? blackKeySelectedColor.cgColor : blackKeyBackgroundColor.cgColor
+        key.highlightLayer.backgroundColor = key.isHighlighted ? blackKeyHighlightedColor.cgColor : UIColor.clear.cgColor
         key.borderWidth = blackKeyBorderWidth
         key.borderColor = blackKeyBorderColor.cgColor
 
@@ -152,6 +161,7 @@ public class PianoView: UIView {
           y: frame.size.height / 2,
           width: key == pianoKeys.last ?  blackKeyWidth / 2 : blackKeyWidth,
           height: frame.size.height / 2)
+        key.highlightLayer.frame = key.bounds
 
         if drawNoteText {
           let text = drawNoteOctave ? "\(key.note)" : "\(key.note.type)"
@@ -176,6 +186,7 @@ public class PianoView: UIView {
 
       case .white:
         key.backgroundColor = key.isSelected ? whiteKeySelectedColor.cgColor : whiteKeyBackgroundColor.cgColor
+        key.highlightLayer.backgroundColor = key.isHighlighted ? blackKeyHighlightedColor.cgColor : UIColor.clear.cgColor
         key.borderWidth = whiteKeyBorderWidth
         key.borderColor = whiteKeyBorderColor.cgColor
 
@@ -185,6 +196,7 @@ public class PianoView: UIView {
           width: whiteKeyWidth,
           height: frame.size.height)
         currentX += whiteKeyWidth
+        key.highlightLayer.frame = key.bounds
 
         if drawNoteText {
           let text = drawNoteOctave ? "\(key.note)" : "\(key.note.type)"
