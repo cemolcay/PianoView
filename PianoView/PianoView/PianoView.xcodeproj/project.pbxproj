@@ -9,10 +9,9 @@
 /* Begin PBXBuildFile section */
 		14A383CF682DD6B346DA24FB /* Pods_PianoView_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A3D6FABAFD314B74C268E91 /* Pods_PianoView_macOS.framework */; };
 		6E396A3B5BC5CB7C8D2CE9D9 /* Pods_PianoView_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FBF986DCE7A5E94859C9A9 /* Pods_PianoView_iOS.framework */; };
-		B29CBF251E40D00300297BB1 /* PianoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CBF241E40D00300297BB1 /* PianoView.swift */; };
 		B29CBF271E40D02A00297BB1 /* PianoView.h in Headers */ = {isa = PBXBuildFile; fileRef = B29CBF261E40D02A00297BB1 /* PianoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B29CBF281E40D02A00297BB1 /* PianoView.h in Headers */ = {isa = PBXBuildFile; fileRef = B29CBF261E40D02A00297BB1 /* PianoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B29CBF331E4107E500297BB1 /* PianoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CBF241E40D00300297BB1 /* PianoView.swift */; };
+		B29CBF741E41294A00297BB1 /* PianoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CBF241E40D00300297BB1 /* PianoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -285,7 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B29CBF251E40D00300297BB1 /* PianoView.swift in Sources */,
+				B29CBF741E41294A00297BB1 /* PianoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +292,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B29CBF331E4107E500297BB1 /* PianoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
