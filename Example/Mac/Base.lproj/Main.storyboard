@@ -686,11 +686,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IFX-sU-tS5" customClass="PianoView" customModule="Mac" customModuleProvider="target">
-                                <rect key="frame" x="20" y="154" width="440" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Rfn-xF-Yyy" customClass="PianoView" customModule="PianoView">
+                                <rect key="frame" x="20" y="162" width="440" height="88"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="K8R-Jj-IKr"/>
+                                </constraints>
                             </customView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="Rfn-xF-Yyy" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="Hbn-0Y-0Pm"/>
+                            <constraint firstItem="Rfn-xF-Yyy" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="Ycm-bP-Wq2"/>
+                            <constraint firstAttribute="trailing" secondItem="Rfn-xF-Yyy" secondAttribute="trailing" constant="20" id="rzq-5G-2ea"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

@@ -6,7 +6,11 @@
 //  Copyright © 2017 prototapp. All rights reserved.
 //
 
-import AppKit
+#if os(OSX)
+  import AppKit
+#elseif os(iOS)
+  import UIKit
+#endif
 import MusicTheorySwift
 
 internal extension NoteType {
@@ -20,9 +24,15 @@ internal extension NoteType {
   }
 }
 
-public typealias UIColor = NSColor
-public typealias UIFont = NSFont
-public typealias UIView = NSView
+#if os(OSX)
+public typealias PVColor = NSColor
+public typealias PVFont = NSFont
+public typealias PVView = NSView
+#elseif os(iOS)
+public typealias PVColor = UIColor
+public typealias PVFont = UIFont
+public typealias PVView = UIView
+#endif
 
 public enum PianoKeyType {
   case white
@@ -62,12 +72,16 @@ public class PianoKeyLayer: CALayer {
   private func commonInit() {
     addSublayer(highlightLayer)
     addSublayer(textLayer)
-    textLayer.contentsScale = NSScreen.main()?.backingScaleFactor ?? 1
+    #if os(OSX)
+      textLayer.contentsScale = NSScreen.main()?.backingScaleFactor ?? 1
+    #elseif os(iOS)
+      textLayer.contentsScale = UIScreen.main.scale
+    #endif
   }
 }
 
 @IBDesignable
-public class PianoView: UIView {
+public class PianoView: PVView {
   @IBInspectable public var startOctave: Int = 0 {
     didSet {
       if startOctave < 0 {
@@ -88,20 +102,20 @@ public class PianoView: UIView {
     }
   }
 
-  @IBInspectable public var whiteKeyBackgroundColor: UIColor = .white { didSet{ draw() }}
-  @IBInspectable public var blackKeyBackgroundColor: UIColor = .black { didSet{ draw() }}
-  @IBInspectable public var whiteKeySelectedColor: UIColor = .lightGray { didSet{ draw() }}
-  @IBInspectable public var blackKeySelectedColor: UIColor = .darkGray { didSet{ draw() }}
-  @IBInspectable public var whiteKeyHighlightedColor: UIColor = .green { didSet{ draw() }}
-  @IBInspectable public var blackKeyHighlightedColor: UIColor = .green { didSet{ draw() }}
-  @IBInspectable public var whiteKeyBorderColor: UIColor = .black { didSet{ draw() }}
-  @IBInspectable public var blackKeyBorderColor: UIColor = .black { didSet{ draw() }}
+  @IBInspectable public var whiteKeyBackgroundColor: PVColor = .white { didSet{ draw() }}
+  @IBInspectable public var blackKeyBackgroundColor: PVColor = .black { didSet{ draw() }}
+  @IBInspectable public var whiteKeySelectedColor: PVColor = .lightGray { didSet{ draw() }}
+  @IBInspectable public var blackKeySelectedColor: PVColor = .darkGray { didSet{ draw() }}
+  @IBInspectable public var whiteKeyHighlightedColor: PVColor = .green { didSet{ draw() }}
+  @IBInspectable public var blackKeyHighlightedColor: PVColor = .green { didSet{ draw() }}
+  @IBInspectable public var whiteKeyBorderColor: PVColor = .black { didSet{ draw() }}
+  @IBInspectable public var blackKeyBorderColor: PVColor = .black { didSet{ draw() }}
   @IBInspectable public var whiteKeyBorderWidth: CGFloat = 1 { didSet{ draw() }}
   @IBInspectable public var blackKeyBorderWidth: CGFloat = 0 { didSet{ draw() }}
-  @IBInspectable public var whiteKeyTextColor: UIColor = .black { didSet{ draw() }}
-  @IBInspectable public var blackKeyTextColor: UIColor = .white { didSet{ draw() }}
-  @IBInspectable public var whiteKeySelectedTextColor: UIColor = .white { didSet{ draw() }}
-  @IBInspectable public var blackKeySelectedTextColor: UIColor = .black { didSet{ draw() }}
+  @IBInspectable public var whiteKeyTextColor: PVColor = .black { didSet{ draw() }}
+  @IBInspectable public var blackKeyTextColor: PVColor = .white { didSet{ draw() }}
+  @IBInspectable public var whiteKeySelectedTextColor: PVColor = .white { didSet{ draw() }}
+  @IBInspectable public var blackKeySelectedTextColor: PVColor = .black { didSet{ draw() }}
   @IBInspectable public var whiteKeyFontSize: CGFloat = 15 { didSet{ draw() }}
   @IBInspectable public var blackKeyFontSize: CGFloat = 15 { didSet{ draw() }}
   @IBInspectable public var whiteKeyTextTreshold: CGFloat = 5 { didSet{ draw() }}
@@ -111,13 +125,22 @@ public class PianoView: UIView {
 
   private var pianoKeys = [PianoKeyLayer]()
 
-  public override func draw(_ rect: CGRect) {
-    super.draw(rect)
-    if keyCount > 0, pianoKeys.isEmpty {
-      setup()
-    }
+  #if os(OSX)
+  public override func draw(_ dirtyRect: NSRect) {
+    super.draw(dirtyRect)
     draw()
   }
+  #elseif os(iOS)
+    public override func draw(_ rect: CGRect) {
+      super.draw(rect)
+      draw()
+    }
+
+    public override func layoutSubviews() {
+      super.layoutSubviews()
+      draw()
+    }
+  #endif
 
   public func selectNote(note: Note) {
     pianoKeys.filter({ $0.note == note }).first?.isSelected = true
@@ -135,15 +158,23 @@ public class PianoView: UIView {
   }
 
   private func setup() {
-    wantsLayer = true
+    #if os(OSX)
+      wantsLayer = true
+      guard let layer = self.layer else { return }
+    #endif
+
     pianoKeys.forEach({ $0.removeFromSuperlayer() })
     let startNote = Note(type: .c, octave: startOctave)
     pianoKeys = Array(0..<keyCount).map({ PianoKeyLayer(note: startNote + $0) })
-    pianoKeys.filter({ $0.type == .white }).forEach({ layer?.addSublayer($0) })
-    pianoKeys.filter({ $0.type == .black }).forEach({ layer?.addSublayer($0) })
+    pianoKeys.filter({ $0.type == .white }).forEach({ layer.addSublayer($0) })
+    pianoKeys.filter({ $0.type == .black }).forEach({ layer.addSublayer($0) })
   }
 
   private func draw() {
+    if keyCount > 0, pianoKeys.isEmpty {
+      setup()
+    }
+    
     let whiteKeyCount = pianoKeys.filter({ $0.type == .white }).count
     let whiteKeyWidth = frame.size.width / CGFloat(whiteKeyCount)
     let blackKeyWidth = whiteKeyWidth / 2
@@ -152,21 +183,29 @@ public class PianoView: UIView {
       switch key.type {
       case .black:
         key.backgroundColor = key.isSelected ? blackKeySelectedColor.cgColor : blackKeyBackgroundColor.cgColor
-        key.highlightLayer.backgroundColor = key.isHighlighted ? blackKeyHighlightedColor.cgColor : UIColor.clear.cgColor
+        key.highlightLayer.backgroundColor = key.isHighlighted ? blackKeyHighlightedColor.cgColor : PVColor.clear.cgColor
         key.borderWidth = blackKeyBorderWidth
         key.borderColor = blackKeyBorderColor.cgColor
 
-        key.frame = CGRect(
-          x: currentX - blackKeyWidth / 2,
-          y: frame.size.height / 2,
-          width: key == pianoKeys.last ?  blackKeyWidth / 2 : blackKeyWidth,
-          height: frame.size.height / 2)
-        key.highlightLayer.frame = key.bounds
+        #if os(OSX)
+          key.frame = CGRect(
+            x: currentX - blackKeyWidth / 2,
+            y: frame.size.height / 2,
+            width: key == pianoKeys.last ?  blackKeyWidth / 2 : blackKeyWidth,
+            height: frame.size.height / 2)
+          key.highlightLayer.frame = key.bounds
+        #elseif os(iOS)
+          key.frame = CGRect(
+            x: currentX - blackKeyWidth / 2,
+            y: 0,
+            width: key == pianoKeys.last ?  blackKeyWidth / 2 : blackKeyWidth,
+            height: frame.size.height / 2)
+        #endif
 
         if drawNoteText {
           let text = drawNoteOctave ? "\(key.note)" : "\(key.note.type)"
           let textColor = key.isSelected ? blackKeySelectedTextColor : blackKeyTextColor
-          let font = UIFont.systemFont(ofSize: blackKeyFontSize)
+          let font = PVFont.systemFont(ofSize: blackKeyFontSize)
           key.textLayer.alignmentMode = kCAAlignmentCenter
           key.textLayer.string = NSAttributedString(
             string: text,
@@ -175,33 +214,52 @@ public class PianoView: UIView {
               NSFontAttributeName: font
             ])
 
-          key.textLayer.frame = CGRect(
-            x: 0,
-            y: blackKeyTextTreshold,
-            width: key.frame.size.width,
-            height: blackKeyFontSize)
+          #if os(OSX)
+            key.textLayer.frame = CGRect(
+              x: 0,
+              y: blackKeyTextTreshold,
+              width: key.frame.size.width,
+              height: blackKeyFontSize)
+          #elseif os(iOS)
+            key.textLayer.frame = CGRect(
+              x: 0,
+              y: key.frame.size.height - blackKeyFontSize - blackKeyTextTreshold,
+              width: key.frame.size.width,
+              height: blackKeyFontSize)
+          #endif
+
         } else {
           key.textLayer.string = nil
         }
 
       case .white:
         key.backgroundColor = key.isSelected ? whiteKeySelectedColor.cgColor : whiteKeyBackgroundColor.cgColor
-        key.highlightLayer.backgroundColor = key.isHighlighted ? blackKeyHighlightedColor.cgColor : UIColor.clear.cgColor
+        key.highlightLayer.backgroundColor = key.isHighlighted ? blackKeyHighlightedColor.cgColor : PVColor.clear.cgColor
         key.borderWidth = whiteKeyBorderWidth
         key.borderColor = whiteKeyBorderColor.cgColor
 
-        key.frame = CGRect(
-          x: currentX,
-          y: 0,
-          width: whiteKeyWidth,
-          height: frame.size.height)
-        currentX += whiteKeyWidth
+        #if os(OSX)
+          key.frame = CGRect(
+            x: currentX,
+            y: 0,
+            width: whiteKeyWidth,
+            height: frame.size.height)
+          currentX += whiteKeyWidth
+        #elseif os(iOS)
+          key.frame = CGRect(
+            x: currentX,
+            y: 0,
+            width: whiteKeyWidth,
+            height: frame.size.height)
+          currentX += whiteKeyWidth
+        #endif
+
         key.highlightLayer.frame = key.bounds
 
         if drawNoteText {
           let text = drawNoteOctave ? "\(key.note)" : "\(key.note.type)"
           let textColor = key.isSelected ? whiteKeySelectedTextColor : whiteKeyTextColor
-          let font = UIFont.systemFont(ofSize: whiteKeyFontSize)
+          let font = PVFont.systemFont(ofSize: whiteKeyFontSize)
           key.textLayer.alignmentMode = kCAAlignmentCenter
           key.textLayer.string = NSAttributedString(
             string: text,
@@ -210,11 +268,20 @@ public class PianoView: UIView {
               NSFontAttributeName: font
             ])
 
-          key.textLayer.frame = CGRect(
-            x: 0,
-            y: whiteKeyTextTreshold,
-            width: key.frame.size.width,
-            height: whiteKeyFontSize)
+          #if os(OSX)
+            key.textLayer.frame = CGRect(
+              x: 0,
+              y: whiteKeyTextTreshold,
+              width: key.frame.size.width,
+              height: whiteKeyFontSize)
+          #elseif os(iOS)
+            key.textLayer.frame = CGRect(
+              x: 0,
+              y: key.frame.size.height - whiteKeyFontSize - whiteKeyTextTreshold,
+              width: key.frame.size.width,
+              height: whiteKeyFontSize)
+          #endif
+
         } else {
           key.textLayer.string = nil
         }

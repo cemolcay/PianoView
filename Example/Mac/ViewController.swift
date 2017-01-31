@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  Mac
 //
-//  Created by Cem Olcay on 20/01/2017.
-//  Copyright © 2017 prototapp. All rights reserved.
+//  Created by Cem Olcay on 31/01/2017.
+//
 //
 
 import Cocoa

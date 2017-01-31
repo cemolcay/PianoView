@@ -1,0 +1,19 @@
+PODS:
+  - MusicTheorySwift (0.0.2)
+  - PianoView (0.0.1):
+    - MusicTheorySwift
+
+DEPENDENCIES:
+  - PianoView (from `../`)
+
+EXTERNAL SOURCES:
+  PianoView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  MusicTheorySwift: c195af876a2eec9ad180eb02345e187b3650e578
+  PianoView: 4e6eda14f23b690e98654fd13514dd57c25b4ab7
+
+PODFILE CHECKSUM: 0146df0484afc8fd26e526a5e8c0b04ba1f2272d
+
+COCOAPODS: 1.1.1

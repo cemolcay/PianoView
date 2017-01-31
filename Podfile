@@ -3,14 +3,14 @@
 
 workspace 'PianoView'
 
-target 'PianoView' do
+target 'PianoView iOS' do
   use_frameworks!
-  project 'PianoView.xcodeproj'
+  project 'PianoView/PianoView/PianoView.xcodeproj'
   pod 'MusicTheorySwift'
 end
 
-target 'Mac' do
+target 'PianoView macOS' do
   use_frameworks!
-  project 'Mac/Mac.xcodeproj'
+  project 'PianoView/PianoView/PianoView.xcodeproj'
   pod 'MusicTheorySwift'
 end
