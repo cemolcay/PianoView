@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		14A383CF682DD6B346DA24FB /* Pods_PianoView_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A3D6FABAFD314B74C268E91 /* Pods_PianoView_macOS.framework */; };
 		6E396A3B5BC5CB7C8D2CE9D9 /* Pods_PianoView_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FBF986DCE7A5E94859C9A9 /* Pods_PianoView_iOS.framework */; };
-		B29CBF271E40D02A00297BB1 /* PianoView.h in Headers */ = {isa = PBXBuildFile; fileRef = B29CBF261E40D02A00297BB1 /* PianoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B29CBF281E40D02A00297BB1 /* PianoView.h in Headers */ = {isa = PBXBuildFile; fileRef = B29CBF261E40D02A00297BB1 /* PianoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B29CBF761E431EED00297BB1 /* PianoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CBF241E40D00300297BB1 /* PianoView.swift */; };
+		B29CBF801E44C7FE00297BB1 /* PianoView.h in Headers */ = {isa = PBXBuildFile; fileRef = B29CBF7A1E44C7FE00297BB1 /* PianoView.h */; };
+		B29CBF811E44C7FE00297BB1 /* PianoView.h in Headers */ = {isa = PBXBuildFile; fileRef = B29CBF7A1E44C7FE00297BB1 /* PianoView.h */; };
+		B29CBF821E44C7FE00297BB1 /* PianoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CBF7B1E44C7FE00297BB1 /* PianoView.swift */; };
+		B29CBF831E44C7FE00297BB1 /* PianoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CBF7B1E44C7FE00297BB1 /* PianoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,10 +23,10 @@
 		99327C01D51ACC23799F3B76 /* Pods-PianoView macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PianoView macOS.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-PianoView macOS/Pods-PianoView macOS.release.xcconfig"; sourceTree = "<group>"; };
 		B29CBF0D1E40CFA300297BB1 /* PianoView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PianoView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B29CBF1B1E40CFB800297BB1 /* PianoView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PianoView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B29CBF241E40D00300297BB1 /* PianoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PianoView.swift; sourceTree = "<group>"; };
-		B29CBF261E40D02A00297BB1 /* PianoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PianoView.h; sourceTree = "<group>"; };
-		B29CBF291E40D07300297BB1 /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
-		B29CBF2A1E40D07300297BB1 /* Info-macOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-macOS.plist"; sourceTree = "<group>"; };
+		B29CBF781E44C7FE00297BB1 /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
+		B29CBF791E44C7FE00297BB1 /* Info-macOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-macOS.plist"; sourceTree = "<group>"; };
+		B29CBF7A1E44C7FE00297BB1 /* PianoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PianoView.h; sourceTree = "<group>"; };
+		B29CBF7B1E44C7FE00297BB1 /* PianoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PianoView.swift; sourceTree = "<group>"; };
 		FBA2A64E05177FDFA229BB9D /* Pods-PianoView macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PianoView macOS.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-PianoView macOS/Pods-PianoView macOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,7 +73,7 @@
 		B29CBF011E40CF8800297BB1 = {
 			isa = PBXGroup;
 			children = (
-				B29CBF231E40D00300297BB1 /* Shared */,
+				B29CBF771E44C7FE00297BB1 /* Source */,
 				B29CBF0E1E40CFA300297BB1 /* Products */,
 				A4270DE264923F9F4E37398A /* Pods */,
 				3976DC13AC354E2D2E8B9825 /* Frameworks */,
@@ -88,15 +89,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B29CBF231E40D00300297BB1 /* Shared */ = {
+		B29CBF771E44C7FE00297BB1 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				B29CBF241E40D00300297BB1 /* PianoView.swift */,
-				B29CBF261E40D02A00297BB1 /* PianoView.h */,
-				B29CBF291E40D07300297BB1 /* Info-iOS.plist */,
-				B29CBF2A1E40D07300297BB1 /* Info-macOS.plist */,
+				B29CBF781E44C7FE00297BB1 /* Info-iOS.plist */,
+				B29CBF791E44C7FE00297BB1 /* Info-macOS.plist */,
+				B29CBF7A1E44C7FE00297BB1 /* PianoView.h */,
+				B29CBF7B1E44C7FE00297BB1 /* PianoView.swift */,
 			);
-			path = Shared;
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -106,7 +107,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B29CBF271E40D02A00297BB1 /* PianoView.h in Headers */,
+				B29CBF801E44C7FE00297BB1 /* PianoView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,7 +115,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B29CBF281E40D02A00297BB1 /* PianoView.h in Headers */,
+				B29CBF811E44C7FE00297BB1 /* PianoView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +260,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../../Pods/Target Support Files/Pods-PianoView iOS/Pods-PianoView iOS-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PianoView iOS/Pods-PianoView iOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B8898A8E4628855632A627AF /* [CP] Copy Pods Resources */ = {
@@ -274,7 +275,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../../Pods/Target Support Files/Pods-PianoView macOS/Pods-PianoView macOS-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PianoView macOS/Pods-PianoView macOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -284,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B29CBF821E44C7FE00297BB1 /* PianoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,7 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B29CBF761E431EED00297BB1 /* PianoView.swift in Sources */,
+				B29CBF831E44C7FE00297BB1 /* PianoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,7 +362,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Shared/Info-iOS.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info-iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -421,7 +423,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Shared/Info-iOS.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info-iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -488,7 +490,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Shared/Info-macOS.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info-macOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -549,7 +551,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Shared/Info-macOS.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info-macOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
