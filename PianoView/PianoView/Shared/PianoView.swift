@@ -13,6 +13,151 @@
 #endif
 import MusicTheorySwift
 
+// MARK: - NSBezierPath Extension
+#if os(OSX)
+  public struct NSRectCorner: OptionSet {
+    public let rawValue: UInt
+
+    public static let none = NSRectCorner(rawValue: 0)
+    public static let topLeft = NSRectCorner(rawValue: 1 << 0)
+    public static let topRight = NSRectCorner(rawValue: 1 << 1)
+    public static let bottomLeft = NSRectCorner(rawValue: 1 << 2)
+    public static let bottomRight = NSRectCorner(rawValue: 1 << 3)
+    public static var all: NSRectCorner {
+      return [.topLeft, .topRight, .bottomLeft, .bottomRight]
+    }
+
+    public init(rawValue: UInt) {
+      self.rawValue = rawValue
+    }
+  }
+
+  public extension NSBezierPath {
+    public var cgPath: CGPath {
+      let path = CGMutablePath()
+      var points = [CGPoint](repeating: .zero, count: 3)
+      for i in 0 ..< self.elementCount {
+        let type = self.element(at: i, associatedPoints: &points)
+        switch type {
+        case .moveToBezierPathElement:
+          path.move(to: CGPoint(x: points[0].x, y: points[0].y))
+        case .lineToBezierPathElement:
+          path.addLine(to: CGPoint(x: points[0].x, y: points[0].y))
+        case .curveToBezierPathElement:
+          path.addCurve(
+            to: CGPoint(x: points[2].x, y: points[2].y),
+            control1: CGPoint(x: points[0].x, y: points[0].y),
+            control2: CGPoint(x: points[1].x, y: points[1].y))
+        case .closePathBezierPathElement:
+          path.closeSubpath()
+        }
+      }
+      return path
+    }
+
+    public convenience init(roundedRect: CGRect, cornerRadius: CGFloat) {
+      self.init(
+        roundedRect: NSRect(
+          x: roundedRect.origin.x,
+          y: roundedRect.origin.y,
+          width: roundedRect.size.width,
+          height: roundedRect.size.height),
+        xRadius: cornerRadius,
+        yRadius: cornerRadius)
+    }
+
+    public convenience init(roundedRect rect: NSRect, byRoundingCorners corners: NSRectCorner, cornerRadii: NSSize) {
+      self.init()
+
+      let topLeft = rect.origin
+      let topRight = NSPoint(x: rect.maxX, y: rect.minY);
+      let bottomRight = NSPoint(x: rect.maxX, y: rect.maxY);
+      let bottomLeft = NSPoint(x: rect.minX, y: rect.maxY);
+
+      if corners.contains(.topLeft) {
+        move(to: CGPoint(
+          x: topLeft.x + cornerRadii.width,
+          y: topLeft.y))
+      } else {
+        move(to: topLeft)
+      }
+
+      if corners.contains(.topRight) {
+        line(to: CGPoint(
+          x: topRight.x - cornerRadii.width,
+          y: topRight.y))
+        curve(
+          to: topRight,
+          controlPoint1: CGPoint(
+            x: topRight.x,
+            y: topRight.y + cornerRadii.height),
+          controlPoint2: CGPoint(
+            x: topRight.x,
+            y: topRight.y + cornerRadii.height))
+      } else {
+        line(to: topRight)
+      }
+
+      if corners.contains(.bottomRight) {
+        line(to: CGPoint(
+          x: bottomRight.x,
+          y: bottomRight.y - cornerRadii.height))
+        curve(
+          to: bottomRight,
+          controlPoint1: CGPoint(
+            x: bottomRight.x - cornerRadii.width,
+            y: bottomRight.y),
+          controlPoint2: CGPoint(
+            x: bottomRight.x - cornerRadii.width,
+            y: bottomRight.y))
+      } else {
+        line(to: bottomRight)
+      }
+
+      if corners.contains(.bottomLeft) {
+        line(to: CGPoint(
+          x: bottomLeft.x + cornerRadii.width,
+          y: bottomLeft.y))
+        curve(
+          to: bottomLeft,
+          controlPoint1: CGPoint(
+            x: bottomLeft.x,
+            y: bottomLeft.y - cornerRadii.height),
+          controlPoint2: CGPoint(
+            x: bottomLeft.x,
+            y: bottomLeft.y - cornerRadii.height))
+      } else {
+        line(to: bottomLeft)
+      }
+
+      if corners.contains(.topLeft) {
+        line(to: CGPoint(
+          x: topLeft.x,
+          y: topLeft.y + cornerRadii.height))
+        curve(
+          to: topLeft,
+          controlPoint1: CGPoint(
+            x: topLeft.x + cornerRadii.width,
+            y: topLeft.y),
+          controlPoint2: CGPoint(
+            x: topLeft.x + cornerRadii.width,
+            y: topLeft.y))
+      } else {
+        line(to: topLeft)
+      }
+      
+      close()
+    }
+  }
+  
+  public extension NSImage {
+    public var cgImage: CGImage? {
+      return cgImage(forProposedRect: nil, context: nil, hints: nil)
+    }
+  }
+#endif
+
+// MARK: - NoteType Extension
 internal extension NoteType {
   internal var pianoKeyType: PianoKeyType {
     switch self {
@@ -24,6 +169,7 @@ internal extension NoteType {
   }
 }
 
+// MARK: - Typealiases
 #if os(OSX)
 public typealias PVColor = NSColor
 public typealias PVFont = NSFont
@@ -38,18 +184,20 @@ public typealias PVImage = UIImage
 public typealias PVBezierPath = UIBezierPath
 #endif
 
+// MARK: - PianoKeyType
 public enum PianoKeyType {
   case white
   case black
 }
 
+// MARK: - PianoKeyLayer
 public class PianoKeyLayer: CALayer {
   public var note: Note
   public var isSelected = false
   public var isHighlighted = false
-  public var drawImage = false
-  public var keyCornerRadius: CGFloat = 5
+  public var keyCornerRadius = 5
 
+  public var maskLayer = CAShapeLayer()
   public var highlightLayer = CALayer()
   public var textLayer = CATextLayer()
 
@@ -76,7 +224,6 @@ public class PianoKeyLayer: CALayer {
   }
 
   private func commonInit() {
-    masksToBounds = true
     addSublayer(highlightLayer)
     addSublayer(textLayer)
     #if os(OSX)
@@ -105,6 +252,7 @@ public class PianoKeyLayer: CALayer {
     #if os(OSX)
       let image = NSImage(size: NSSize(width: size.width, height: size.height))
       image.lockFocus()
+      guard let context = NSGraphicsContext.current()?.cgContext else { return PVImage() }
     #elseif os(iOS)
       UIGraphicsBeginImageContext(size)
       guard let context = UIGraphicsGetCurrentContext() else { return PVImage() }
@@ -142,25 +290,35 @@ public class PianoKeyLayer: CALayer {
 
       let border = size.width * 0.15
       let width = size.width * 0.7
-      var topRectHeight = size.height * 0.86
-      var bottomRectOffset = size.height * 0.875
-      let bottomRectHeight = size.height * 0.125
+      #if os(OSX)
+        var topRectHeight = size.height * 0.225
+        var bottomRectOffset = size.height * 0.25
+        let bottomRectHeight = size.height * 0.86
+      #elseif os(iOS)
+        var topRectHeight = size.height * 0.86
+        var bottomRectOffset = size.height * 0.875
+        let bottomRectHeight = size.height * 0.225
+      #endif
 
       if isSelected {
-        topRectHeight = size.height * 0.91
-        bottomRectOffset = size.height * 0.925
+        #if os(OSX)
+          topRectHeight = size.height * 1
+          bottomRectOffset = size.height * 0.925
+        #elseif os(iOS)
+          topRectHeight = size.height * 0.91
+          bottomRectOffset = size.height * 0.925
+        #endif
       }
 
       let roundedRectangleRect = CGRect(
-        x: frame.minX +  border,
+        x: frame.minX + border,
         y: frame.minY,
         width: width,
         height: topRectHeight)
 
-      #if os(iOS)
       let roundedRectanglePath = PVBezierPath(
         roundedRect:roundedRectangleRect,
-        cornerRadius: keyCornerRadius)
+        cornerRadius: cornerRadius)
 
       context.saveGState()
 
@@ -186,7 +344,7 @@ public class PianoKeyLayer: CALayer {
 
       let roundedRectangle2Path = PVBezierPath(
         roundedRect: roundedRectangle2Rect,
-        cornerRadius: keyCornerRadius)
+        cornerRadius: cornerRadius)
 
       context.saveGState()
 
@@ -201,7 +359,6 @@ public class PianoKeyLayer: CALayer {
           x: roundedRectangle2Rect.midX,
           y: roundedRectangle2Rect.minY),
         options: [])
-      #endif
 
     } else {
       var fillColor = PVColor(red:0.1, green: 0.1, blue: 0.1, alpha: 0.20)
@@ -220,7 +377,6 @@ public class PianoKeyLayer: CALayer {
         colors: gradient1Colors as CFArray, locations: gradient1Locations)
         else { return PVImage() }
 
-      #if os(iOS)
       let rectanglePath = PVBezierPath(
         rect: CGRect(
           x: 0,
@@ -228,29 +384,29 @@ public class PianoKeyLayer: CALayer {
           width: size.width, 
           height: size.height))
 
-        context.saveGState()
+      context.saveGState()
 
-        rectanglePath.addClip()
+      rectanglePath.addClip()
 
-        context.drawRadialGradient(
-          gradient1, 
-          startCenter: CGPoint(
-            x: size.width / 2.0,
-            y: size.height / 2.0),
-          startRadius: size.height * 0.01,
-          endCenter: CGPoint(
-            x: size.width / 2.0,
-            y: size.height / 2.0),
-          endRadius: size.height * 0.6,
-          options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
-      #endif
+      context.drawRadialGradient(
+        gradient1, 
+        startCenter: CGPoint(
+          x: size.width / 2.0,
+          y: size.height / 2.0),
+        startRadius: size.height * 0.01,
+        endCenter: CGPoint(
+          x: size.width / 2.0,
+          y: size.height / 2.0),
+        endRadius: size.height * 0.6,
+        options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
     }
+
+    context.restoreGState()
 
     #if os(OSX)
       image.unlockFocus()
       return image
     #elseif os(iOS)
-      context.restoreGState()
       if let image = UIGraphicsGetImageFromCurrentImageContext() {
         return image
       }
@@ -259,6 +415,7 @@ public class PianoKeyLayer: CALayer {
   }
 }
 
+// MARK: - PianoView
 @IBDesignable
 public class PianoView: PVView {
   @IBInspectable public var startOctave: Int = 0 {
@@ -299,17 +456,18 @@ public class PianoView: PVView {
   @IBInspectable public var blackKeyFontSize: CGFloat = 15 { didSet{ draw() }}
   @IBInspectable public var whiteKeyTextTreshold: CGFloat = 5 { didSet{ draw() }}
   @IBInspectable public var blackKeyTextTreshold: CGFloat = 5 { didSet{ draw() }}
-  @IBInspectable public var drawNoteText: Bool = true { didSet{ draw() }}
+  @IBInspectable public var drawNoteText: Bool = false { didSet{ draw() }}
   @IBInspectable public var drawNoteOctave: Bool = true { didSet{ draw() }}
-  @IBInspectable public var drawKeyImage: Bool = false { didSet{ draw() }}
-  @IBInspectable public var keyCornerRadius: CGFloat = 5 { didSet{ draw() }}
+  @IBInspectable public var drawGradient: Bool = true { didSet{ draw() }}
+  @IBInspectable public var blackKeyCornerRadius: CGFloat = 3 { didSet{ draw() }}
+  @IBInspectable public var whiteKeyCornerRadius: CGFloat = 5 { didSet{ draw() }}
   private var pianoKeys = [PianoKeyLayer]()
 
   #if os(OSX)
-  public override func draw(_ dirtyRect: NSRect) {
-    super.draw(dirtyRect)
-    draw()
-  }
+    public override func draw(_ dirtyRect: NSRect) {
+      super.draw(dirtyRect)
+      draw()
+    }
   #elseif os(iOS)
     public override func draw(_ rect: CGRect) {
       super.draw(rect)
@@ -357,32 +515,53 @@ public class PianoView: PVView {
     for key in pianoKeys {
       switch key.type {
       case .black:
-
+        // Setup frame
         #if os(OSX)
           key.frame = CGRect(
             x: currentX - blackKeyWidth / 2,
-            y: frame.size.height / 2,
-            width: key == pianoKeys.last ?  blackKeyWidth / 2 : blackKeyWidth,
-            height: frame.size.height / 2)
-          key.highlightLayer.frame = key.bounds
+            y: frame.size.height - (frame.size.height / 5 * 3),
+            width: key == pianoKeys.last ? blackKeyWidth / 2 : blackKeyWidth,
+            height: frame.size.height / 5 * 3)
         #elseif os(iOS)
           key.frame = CGRect(
             x: currentX - blackKeyWidth / 2,
             y: 0,
-            width: key == pianoKeys.last ?  blackKeyWidth / 2 : blackKeyWidth,
-            height: frame.size.height / 2)
+            width: key == pianoKeys.last ? blackKeyWidth / 2 : blackKeyWidth,
+            height: frame.size.height / 5 * 3)
         #endif
 
+        // Draw background
+        key.backgroundColor = key.isSelected ? blackKeySelectedColor.cgColor : blackKeyBackgroundColor.cgColor
         key.highlightLayer.frame = key.bounds
         key.highlightLayer.backgroundColor = key.isHighlighted ? blackKeyHighlightedColor.cgColor : PVColor.clear.cgColor
 
-        key.backgroundColor = key.isSelected ? blackKeySelectedColor.cgColor : blackKeyBackgroundColor.cgColor
-        key.borderWidth = blackKeyBorderWidth
-        key.borderColor = blackKeyBorderColor.cgColor
+        // Draw image or color
+        if !drawGradient {
+          key.borderWidth = blackKeyBorderWidth
+          key.borderColor = blackKeyBorderColor.cgColor
+          key.contents = nil
+        } else {
+          key.mask = key.maskLayer
+          key.maskLayer.frame = key.bounds
+          key.contents = key.keyImage.cgImage
 
-        key.keyCornerRadius = keyCornerRadius
-        key.contents = drawKeyImage ? key.keyImage.cgImage : nil
+          #if os(OSX)
+            key.maskLayer.path = NSBezierPath(
+              roundedRect: key.maskLayer.frame,
+              byRoundingCorners: [.topLeft, .topRight],
+              cornerRadii: NSSize(width: blackKeyCornerRadius, height: blackKeyCornerRadius))
+              .cgPath
+          #elseif os(iOS)
+            key.maskLayer.path = UIBezierPath(
+              roundedRect: key.maskLayer.frame,
+              byRoundingCorners: [.bottomLeft, .bottomRight],
+              cornerRadii: CGSize(width: blackKeyCornerRadius, height: blackKeyCornerRadius))
+              .cgPath
+          #endif
 
+        }
+
+        // Draw text
         if drawNoteText {
           let text = drawNoteOctave ? "\(key.note)" : "\(key.note.type)"
           let textColor = key.isSelected ? blackKeySelectedTextColor : blackKeyTextColor
@@ -414,7 +593,7 @@ public class PianoView: PVView {
         }
 
       case .white:
-
+        // Setup frame
         #if os(OSX)
           key.frame = CGRect(
             x: currentX,
@@ -431,16 +610,37 @@ public class PianoView: PVView {
           currentX += whiteKeyWidth
         #endif
 
+        // Draw backgorund
+        key.backgroundColor = drawGradient ? whiteKeyBackgroundColor.cgColor : (key.isSelected ? whiteKeySelectedColor.cgColor : whiteKeyBackgroundColor.cgColor)
         key.highlightLayer.frame = key.bounds
         key.highlightLayer.backgroundColor = key.isHighlighted ? blackKeyHighlightedColor.cgColor : PVColor.clear.cgColor
 
-        key.backgroundColor = key.isSelected ? whiteKeySelectedColor.cgColor : whiteKeyBackgroundColor.cgColor
-        key.borderWidth = whiteKeyBorderWidth
-        key.borderColor = whiteKeyBorderColor.cgColor
+        // Draw image or color
+        if !drawGradient {
+          key.borderWidth = whiteKeyBorderWidth
+          key.borderColor = whiteKeyBorderColor.cgColor
+          key.contents = nil
+        } else {
+          key.mask = key.maskLayer
+          key.maskLayer.frame = key.bounds.insetBy(dx: 1, dy: 0)
+          key.contents = key.keyImage.cgImage
 
-        key.keyCornerRadius = keyCornerRadius
-        key.contents = drawKeyImage ? key.keyImage.cgImage : nil
+          #if os(OSX)
+            key.maskLayer.path = NSBezierPath(
+              roundedRect: key.maskLayer.bounds,
+              byRoundingCorners: [.topLeft, .topRight],
+              cornerRadii: NSSize(width: whiteKeyCornerRadius, height: whiteKeyCornerRadius))
+              .cgPath
+          #elseif os(iOS)
+            key.maskLayer.path = UIBezierPath(
+              roundedRect: key.maskLayer.bounds,
+              byRoundingCorners: [.bottomLeft, .bottomRight],
+              cornerRadii: CGSize(width: whiteKeyCornerRadius, height: whiteKeyCornerRadius))
+              .cgPath
+          #endif
+        }
 
+        // Draw text
         if drawNoteText {
           let text = drawNoteOctave ? "\(key.note)" : "\(key.note.type)"
           let textColor = key.isSelected ? whiteKeySelectedTextColor : whiteKeyTextColor

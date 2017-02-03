@@ -699,6 +699,9 @@
                             <constraint firstAttribute="trailing" secondItem="Rfn-xF-Yyy" secondAttribute="trailing" constant="20" id="rzq-5G-2ea"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="pianoView" destination="Rfn-xF-Yyy" id="agt-xB-0Yy"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

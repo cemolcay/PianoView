@@ -24,7 +24,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ug-1c-8Py" customClass="PianoView" customModule="PianoView">
                                 <rect key="frame" x="16" y="20" width="343" height="102"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="102" id="Xni-8G-zpY"/>
                                 </constraints>
@@ -37,6 +37,9 @@
                             <constraint firstItem="7Ug-1c-8Py" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="xqv-m2-CaN"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="pianoView" destination="7Ug-1c-8Py" id="kYD-Ys-RFO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
