@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		14A383CF682DD6B346DA24FB /* Pods_PianoView_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A3D6FABAFD314B74C268E91 /* Pods_PianoView_macOS.framework */; };
 		6E396A3B5BC5CB7C8D2CE9D9 /* Pods_PianoView_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FBF986DCE7A5E94859C9A9 /* Pods_PianoView_iOS.framework */; };
-		B29CBF801E44C7FE00297BB1 /* PianoView.h in Headers */ = {isa = PBXBuildFile; fileRef = B29CBF7A1E44C7FE00297BB1 /* PianoView.h */; };
-		B29CBF811E44C7FE00297BB1 /* PianoView.h in Headers */ = {isa = PBXBuildFile; fileRef = B29CBF7A1E44C7FE00297BB1 /* PianoView.h */; };
+		B29CBF801E44C7FE00297BB1 /* PianoView.h in Headers */ = {isa = PBXBuildFile; fileRef = B29CBF7A1E44C7FE00297BB1 /* PianoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B29CBF811E44C7FE00297BB1 /* PianoView.h in Headers */ = {isa = PBXBuildFile; fileRef = B29CBF7A1E44C7FE00297BB1 /* PianoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B29CBF821E44C7FE00297BB1 /* PianoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CBF7B1E44C7FE00297BB1 /* PianoView.swift */; };
 		B29CBF831E44C7FE00297BB1 /* PianoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CBF7B1E44C7FE00297BB1 /* PianoView.swift */; };
 /* End PBXBuildFile section */
@@ -18,8 +18,11 @@
 /* Begin PBXFileReference section */
 		080626FBECDB73ADDCF39F87 /* Pods-PianoView iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PianoView iOS.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-PianoView iOS/Pods-PianoView iOS.release.xcconfig"; sourceTree = "<group>"; };
 		2F33E7604EAB047334CED0E0 /* Pods-PianoView iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PianoView iOS.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-PianoView iOS/Pods-PianoView iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		31E07E0A460699D51FB27088 /* Pods-PianoView macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PianoView macOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PianoView macOS/Pods-PianoView macOS.debug.xcconfig"; sourceTree = "<group>"; };
+		393FE8E7D7AC9443A81E8572 /* Pods-PianoView iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PianoView iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PianoView iOS/Pods-PianoView iOS.release.xcconfig"; sourceTree = "<group>"; };
 		3A3D6FABAFD314B74C268E91 /* Pods_PianoView_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PianoView_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46FBF986DCE7A5E94859C9A9 /* Pods_PianoView_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PianoView_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		759A46F6C30E27104173A38E /* Pods-PianoView iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PianoView iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PianoView iOS/Pods-PianoView iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		99327C01D51ACC23799F3B76 /* Pods-PianoView macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PianoView macOS.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-PianoView macOS/Pods-PianoView macOS.release.xcconfig"; sourceTree = "<group>"; };
 		B29CBF0D1E40CFA300297BB1 /* PianoView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PianoView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B29CBF1B1E40CFB800297BB1 /* PianoView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PianoView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -27,6 +30,7 @@
 		B29CBF791E44C7FE00297BB1 /* Info-macOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-macOS.plist"; sourceTree = "<group>"; };
 		B29CBF7A1E44C7FE00297BB1 /* PianoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PianoView.h; sourceTree = "<group>"; };
 		B29CBF7B1E44C7FE00297BB1 /* PianoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PianoView.swift; sourceTree = "<group>"; };
+		D58B0B67BBF3ECF61CEB448D /* Pods-PianoView macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PianoView macOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PianoView macOS/Pods-PianoView macOS.release.xcconfig"; sourceTree = "<group>"; };
 		FBA2A64E05177FDFA229BB9D /* Pods-PianoView macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PianoView macOS.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-PianoView macOS/Pods-PianoView macOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,6 +70,10 @@
 				080626FBECDB73ADDCF39F87 /* Pods-PianoView iOS.release.xcconfig */,
 				FBA2A64E05177FDFA229BB9D /* Pods-PianoView macOS.debug.xcconfig */,
 				99327C01D51ACC23799F3B76 /* Pods-PianoView macOS.release.xcconfig */,
+				759A46F6C30E27104173A38E /* Pods-PianoView iOS.debug.xcconfig */,
+				393FE8E7D7AC9443A81E8572 /* Pods-PianoView iOS.release.xcconfig */,
+				31E07E0A460699D51FB27088 /* Pods-PianoView macOS.debug.xcconfig */,
+				D58B0B67BBF3ECF61CEB448D /* Pods-PianoView macOS.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -126,12 +134,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B29CBF131E40CFA300297BB1 /* Build configuration list for PBXNativeTarget "PianoView iOS" */;
 			buildPhases = (
-				198DDB5CF9CEF0ACC661AE84 /* [CP] Check Pods Manifest.lock */,
+				EEE0EAA98CB2335CD78DDE85 /* [CP] Check Pods Manifest.lock */,
 				B29CBF081E40CFA300297BB1 /* Sources */,
 				B29CBF091E40CFA300297BB1 /* Frameworks */,
 				B29CBF0A1E40CFA300297BB1 /* Headers */,
 				B29CBF0B1E40CFA300297BB1 /* Resources */,
-				74F3EFC05942FB947D45026A /* [CP] Copy Pods Resources */,
+				B86C3DBCE00C7641316437FE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -218,21 +226,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		198DDB5CF9CEF0ACC661AE84 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		2D123FDB17AC6EC5E327BEC2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -248,7 +241,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		74F3EFC05942FB947D45026A /* [CP] Copy Pods Resources */ = {
+		B86C3DBCE00C7641316437FE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -276,6 +269,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PianoView macOS/Pods-PianoView macOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EEE0EAA98CB2335CD78DDE85 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -316,7 +324,7 @@
 		};
 		B29CBF141E40CFA300297BB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2F33E7604EAB047334CED0E0 /* Pods-PianoView iOS.debug.xcconfig */;
+			baseConfigurationReference = 759A46F6C30E27104173A38E /* Pods-PianoView iOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -383,7 +391,7 @@
 		};
 		B29CBF151E40CFA300297BB1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 080626FBECDB73ADDCF39F87 /* Pods-PianoView iOS.release.xcconfig */;
+			baseConfigurationReference = 393FE8E7D7AC9443A81E8572 /* Pods-PianoView iOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -443,7 +451,7 @@
 		};
 		B29CBF211E40CFB800297BB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FBA2A64E05177FDFA229BB9D /* Pods-PianoView macOS.debug.xcconfig */;
+			baseConfigurationReference = 31E07E0A460699D51FB27088 /* Pods-PianoView macOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -510,7 +518,7 @@
 		};
 		B29CBF221E40CFB800297BB1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 99327C01D51ACC23799F3B76 /* Pods-PianoView macOS.release.xcconfig */;
+			baseConfigurationReference = D58B0B67BBF3ECF61CEB448D /* Pods-PianoView macOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
