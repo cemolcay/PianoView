@@ -487,24 +487,46 @@ public class PianoView: PVView {
     }
   }
 
-  @IBInspectable public var whiteKeyBackgroundColor: PVColor = .white { didSet{ redraw() }}
-  @IBInspectable public var blackKeyBackgroundColor: PVColor = .black { didSet{ redraw() }}
-  @IBInspectable public var whiteKeySelectedColor: PVColor = .lightGray { didSet{ redraw() }}
-  @IBInspectable public var blackKeySelectedColor: PVColor = .darkGray { didSet{ redraw() }}
-  @IBInspectable public var whiteKeyHighlightedColor: PVColor = .green { didSet{ redraw() }}
-  @IBInspectable public var blackKeyHighlightedColor: PVColor = .green { didSet{ redraw() }}
+  #if os(OSX)
+    @IBInspectable public var whiteKeyBackgroundColor: NSColor = .white { didSet{ redraw() }}
+    @IBInspectable public var blackKeyBackgroundColor: NSColor = .black { didSet{ redraw() }}
+    @IBInspectable public var whiteKeySelectedColor: NSColor = .lightGray { didSet{ redraw() }}
+    @IBInspectable public var blackKeySelectedColor: NSColor = .darkGray { didSet{ redraw() }}
+    @IBInspectable public var whiteKeyHighlightedColor: NSColor = .green { didSet{ redraw() }}
+    @IBInspectable public var blackKeyHighlightedColor: NSColor = .green { didSet{ redraw() }}
 
-  @IBInspectable public var whiteKeyBorderColor: PVColor = .black { didSet{ redraw() }}
-  @IBInspectable public var blackKeyBorderColor: PVColor = .black { didSet{ redraw() }}
+    @IBInspectable public var whiteKeyBorderColor: NSColor = .black { didSet{ redraw() }}
+    @IBInspectable public var blackKeyBorderColor: PVColor = .black { didSet{ redraw() }}
+  #elseif os(iOS)
+    @IBInspectable public var whiteKeyBackgroundColor: UIColor = .white { didSet{ redraw() }}
+    @IBInspectable public var blackKeyBackgroundColor: UIColor = .black { didSet{ redraw() }}
+    @IBInspectable public var whiteKeySelectedColor: UIColor = .lightGray { didSet{ redraw() }}
+    @IBInspectable public var blackKeySelectedColor: UIColor = .darkGray { didSet{ redraw() }}
+    @IBInspectable public var whiteKeyHighlightedColor: UIColor = .green { didSet{ redraw() }}
+    @IBInspectable public var blackKeyHighlightedColor: UIColor = .green { didSet{ redraw() }}
+
+    @IBInspectable public var whiteKeyBorderColor: UIColor = .black { didSet{ redraw() }}
+    @IBInspectable public var blackKeyBorderColor: UIColor = .black { didSet{ redraw() }}
+  #endif
+
   @IBInspectable public var whiteKeyBorderWidth: CGFloat = 0.5 { didSet{ redraw() }}
   @IBInspectable public var blackKeyBorderWidth: CGFloat = 0 { didSet{ redraw() }}
 
-  @IBInspectable public var whiteKeyTextColor: PVColor = .black { didSet{ redraw() }}
-  @IBInspectable public var blackKeyTextColor: PVColor = .white { didSet{ redraw() }}
-  @IBInspectable public var whiteKeySelectedTextColor: PVColor = .white { didSet{ redraw() }}
-  @IBInspectable public var blackKeySelectedTextColor: PVColor = .black { didSet{ redraw() }}
-  @IBInspectable public var blackKeyHighlightedTextColor: PVColor = .black { didSet{ redraw() }}
-  @IBInspectable public var whiteKeyHighlightedTextColor: PVColor = .black { didSet{ redraw() }}
+  #if os(OSX)
+    @IBInspectable public var whiteKeyTextColor: NSColor = .black { didSet{ redraw() }}
+    @IBInspectable public var blackKeyTextColor: NSColor = .white { didSet{ redraw() }}
+    @IBInspectable public var whiteKeySelectedTextColor: NSColor = .white { didSet{ redraw() }}
+    @IBInspectable public var blackKeySelectedTextColor: NSColor = .black { didSet{ redraw() }}
+    @IBInspectable public var blackKeyHighlightedTextColor: NSColor = .black { didSet{ redraw() }}
+    @IBInspectable public var whiteKeyHighlightedTextColor: NSColor = .black { didSet{ redraw() }}
+  #elseif os(iOS)
+    @IBInspectable public var whiteKeyTextColor: UIColor = .black { didSet{ redraw() }}
+    @IBInspectable public var blackKeyTextColor: UIColor = .white { didSet{ redraw() }}
+    @IBInspectable public var whiteKeySelectedTextColor: UIColor = .white { didSet{ redraw() }}
+    @IBInspectable public var blackKeySelectedTextColor: UIColor = .black { didSet{ redraw() }}
+    @IBInspectable public var blackKeyHighlightedTextColor: UIColor = .black { didSet{ redraw() }}
+    @IBInspectable public var whiteKeyHighlightedTextColor: UIColor = .black { didSet{ redraw() }}
+  #endif
 
   @IBInspectable public var whiteKeyFontSize: CGFloat = 15 { didSet{ redraw() }}
   @IBInspectable public var blackKeyFontSize: CGFloat = 11 { didSet{ redraw() }}
