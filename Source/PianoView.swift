@@ -571,6 +571,10 @@ public class PianoView: PVView {
     draw()
   }
 
+  public func highlightNoteType(noteType: NoteType) {
+    pianoKeys.filter({ $0.note.type == noteType }).forEach({ $0.isHighlighted = true })
+  }
+
   public func unhighlightAll() {
     pianoKeys.filter({ $0.isHighlighted }).forEach({ $0.isHighlighted = false })
     draw()
