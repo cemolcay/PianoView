@@ -350,8 +350,8 @@ public class PianoKeyLayer: CALayer {
       let border = size.width * 0.15
       let width = size.width * 0.7
       #if os(OSX)
-        var topRectHeight = size.height * 0.225
-        var bottomRectOffset = size.height * 0.25
+        var topRectHeight = size.height * 0.125
+        var bottomRectOffset = size.height * 0.15
         let bottomRectHeight = size.height * 0.86
       #elseif os(iOS)
         var topRectHeight = size.height * 0.86
@@ -381,8 +381,7 @@ public class PianoKeyLayer: CALayer {
 
       ctx.saveGState()
       ctx.addPath(roundedRectanglePath.cgPath)
-      ctx.fillPath()
-      //context.clip(to: roundedRectangleRect)
+      ctx.clip(using: .evenOdd)
 
       ctx.drawLinearGradient(
         gradient1,
@@ -408,8 +407,7 @@ public class PianoKeyLayer: CALayer {
 
       ctx.saveGState()
       ctx.addPath(roundedRectangle2Path.cgPath)
-      ctx.fillPath()
-      //context.clip(to: roundedRectangle2Rect)
+      ctx.clip(using: .evenOdd)
 
       ctx.drawLinearGradient(
         gradient1,
