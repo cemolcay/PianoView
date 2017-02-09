@@ -1,12 +1,12 @@
 PODS:
-  - MusicTheorySwift (0.0.2)
+  - MusicTheorySwift (0.0.3)
 
 DEPENDENCIES:
   - MusicTheorySwift
 
 SPEC CHECKSUMS:
-  MusicTheorySwift: c195af876a2eec9ad180eb02345e187b3650e578
+  MusicTheorySwift: 8003df1bf5a905120629378712156ceebebfc7d5
 
-PODFILE CHECKSUM: e14c88d5b29ec87589e5b708ca71ed92dae2dacb
+PODFILE CHECKSUM: 4e0e46b00c483e6f1bc1d16fa19e11fb20a949d1
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0

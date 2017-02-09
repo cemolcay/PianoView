@@ -8,7 +8,7 @@
 
 #if os(OSX)
   import AppKit
-#elseif os(iOS)
+#elseif os(iOS) || os(tvOS)
   import UIKit
 #endif
 import MusicTheorySwift
@@ -176,7 +176,7 @@ public typealias PVFont = NSFont
 public typealias PVView = NSView
 public typealias PVImage = NSImage
 public typealias PVBezierPath = NSBezierPath
-#elseif os(iOS)
+#elseif os(iOS) || os(tvOS)
 public typealias PVColor = UIColor
 public typealias PVFont = UIFont
 public typealias PVView = UIView
@@ -247,7 +247,7 @@ public class PianoKeyLayer: CALayer {
     textLayer.alignmentMode = kCAAlignmentCenter
     #if os(OSX)
       textLayer.contentsScale = NSScreen.main()?.backingScaleFactor ?? 1
-    #elseif os(iOS)
+    #elseif os(iOS) || os(tvOS)
       textLayer.contentsScale = UIScreen.main.scale
     #endif
   }
@@ -279,7 +279,7 @@ public class PianoKeyLayer: CALayer {
           y: textTreshold,
           width: frame.size.width,
           height: textSize)
-      #elseif os(iOS)
+      #elseif os(iOS) || os(tvOS)
         textLayer.frame = CGRect(
           x: 0,
           y: frame.size.height - textSize - textTreshold,
@@ -307,7 +307,7 @@ public class PianoKeyLayer: CALayer {
           byRoundingCorners: [.topLeft, .topRight],
           cornerRadii: NSSize(width: keyCornerRadius, height: keyCornerRadius))
           .cgPath
-      #elseif os(iOS)
+      #elseif os(iOS) || os(tvOS)
         maskLayer.path = UIBezierPath(
           roundedRect: maskLayer.frame,
           byRoundingCorners: [.bottomLeft, .bottomRight],
@@ -353,7 +353,7 @@ public class PianoKeyLayer: CALayer {
         var topRectHeight = size.height * 0.125
         var bottomRectOffset = size.height * 0.15
         let bottomRectHeight = size.height * 0.86
-      #elseif os(iOS)
+      #elseif os(iOS) || os(tvOS)
         var topRectHeight = size.height * 0.86
         var bottomRectOffset = size.height * 0.875
         let bottomRectHeight = size.height * 0.225
@@ -363,7 +363,7 @@ public class PianoKeyLayer: CALayer {
         #if os(OSX)
           topRectHeight = size.height * 1
           bottomRectOffset = size.height * 0.925
-        #elseif os(iOS)
+        #elseif os(iOS) || os(tvOS)
           topRectHeight = size.height * 0.91
           bottomRectOffset = size.height * 0.925
         #endif
@@ -495,7 +495,7 @@ public class PianoView: PVView {
 
     @IBInspectable public var whiteKeyBorderColor: NSColor = .black { didSet{ redraw() }}
     @IBInspectable public var blackKeyBorderColor: PVColor = .black { didSet{ redraw() }}
-  #elseif os(iOS)
+  #elseif os(iOS) || os(tvOS)
     @IBInspectable public var whiteKeyBackgroundColor: UIColor = .white { didSet{ redraw() }}
     @IBInspectable public var blackKeyBackgroundColor: UIColor = .black { didSet{ redraw() }}
     @IBInspectable public var whiteKeySelectedColor: UIColor = .lightGray { didSet{ redraw() }}
@@ -517,7 +517,7 @@ public class PianoView: PVView {
     @IBInspectable public var blackKeySelectedTextColor: NSColor = .black { didSet{ redraw() }}
     @IBInspectable public var blackKeyHighlightedTextColor: NSColor = .black { didSet{ redraw() }}
     @IBInspectable public var whiteKeyHighlightedTextColor: NSColor = .black { didSet{ redraw() }}
-  #elseif os(iOS)
+  #elseif os(iOS) || os(tvOS)
     @IBInspectable public var whiteKeyTextColor: UIColor = .black { didSet{ redraw() }}
     @IBInspectable public var blackKeyTextColor: UIColor = .white { didSet{ redraw() }}
     @IBInspectable public var whiteKeySelectedTextColor: UIColor = .white { didSet{ redraw() }}
@@ -602,7 +602,7 @@ public class PianoView: PVView {
       super.draw(dirtyRect)
       draw()
     }
-  #elseif os(iOS)
+  #elseif os(iOS) || os(tvOS)
     public override func draw(_ rect: CGRect) {
       super.draw(rect)
       draw()
@@ -631,7 +631,7 @@ public class PianoView: PVView {
             y: frame.size.height - (frame.size.height / 5 * 3),
             width: key == pianoKeys.last ? blackKeyWidth / 2 : blackKeyWidth,
             height: frame.size.height / 5 * 3)
-        #elseif os(iOS)
+        #elseif os(iOS) || os(tvOS)
           key.frame = CGRect(
             x: currentX - blackKeyWidth / 2,
             y: 0,
@@ -646,7 +646,7 @@ public class PianoView: PVView {
             width: whiteKeyWidth,
             height: frame.size.height)
           currentX += whiteKeyWidth
-        #elseif os(iOS)
+        #elseif os(iOS) || os(tvOS)
           key.frame = CGRect(
             x: currentX,
             y: 0,
@@ -696,7 +696,7 @@ public class PianoView: PVView {
     guard shouldRedraw else { return }
     #if os(OSX)
       needsDisplay = true
-    #elseif os(iOS)
+    #elseif os(iOS) || os(tvOS)
       setNeedsDisplay()
     #endif
   }

@@ -17,13 +17,49 @@ Pod::Spec.new do |s|
 
   s.name         = "PianoView"
   s.version      = "0.0.1"
-  s.summary      = "A short description of PianoView."
+  s.summary      = "Fully custumisable piano keyboard view with `@IBDesignable` properties in swift."
   s.description  = <<-DESC
-  # This description is used to generate tags and improve search results.
-  #   * Think: What does it do? Why did you write it? What is the focus?
-  #   * Try to keep it short, snappy and to the point.
-  #   * Write the description between the DESC delimiters below.
-  #   * Finally, don't worry about the indent, CocoaPods strips it!
+PianoView
+===
+
+Fully custumisable piano keyboard view with `@IBDesignable` properties in swift.
+
+![alt tag](https://github.com/cemolcay/PianoView/blob/master/demo.png?raw=true)
+
+Requirements
+----
+
+* Swift 3+
+* iOS 8.0+
+* tvOS 9.0+
+* macOS 10.9+
+
+Install
+----
+
+```
+pod 'PianoView'
+```
+
+You need to add this post installer script to your podfile in order to use @IBDesignable libraries with pods.
+More information on this [cocoapods issue](https://github.com/CocoaPods/CocoaPods/issues/5334)
+
+```
+post_install do |installer|
+installer.pods_project.build_configurations.each do |config|
+config.build_settings['LD_RUNPATH_SEARCH_PATHS'] = ['$(FRAMEWORK_SEARCH_PATHS)']
+end
+end
+```
+
+Usage
+----
+
+* PianoView is just a regular UIView.
+* Either setup inside storyboard or initilize from code.
+* Draws desired key count in its view rectangle.
+* Could be draw notes on keys with or without octaves.
+* You could use octave to show pressed note in physical device.
                    DESC
 
   s.homepage     = "https://github.com/cemolcay/PianoView"
@@ -66,10 +102,10 @@ Pod::Spec.new do |s|
   # s.platform     = :ios, "5.0"
 
   #  When using multiple platforms
-  s.ios.deployment_target = "10.0"
-  s.osx.deployment_target = "10.11"
+  s.ios.deployment_target = "8.0"
+  s.osx.deployment_target = "10.9"
   # s.watchos.deployment_target = "2.0"
-  # s.tvos.deployment_target = "9.0"
+  s.tvos.deployment_target = "9.0"
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -78,8 +114,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       =  { :path => '.' }
-  #{ :git => "http://EXAMPLE/PianoView.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github/cemolcay/PianoView.git", :tag => "#{s.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

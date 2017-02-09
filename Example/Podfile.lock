@@ -1,5 +1,5 @@
 PODS:
-  - MusicTheorySwift (0.0.2)
+  - MusicTheorySwift (0.0.3)
   - PianoView (0.0.1):
     - MusicTheorySwift
 
@@ -11,9 +11,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  MusicTheorySwift: c195af876a2eec9ad180eb02345e187b3650e578
-  PianoView: c11c06ce489013bcda412b5ec8b888a9b5d83a2f
+  MusicTheorySwift: 8003df1bf5a905120629378712156ceebebfc7d5
+  PianoView: a1bdfca224033b01ae83defd918cd0a3804e4bee
 
-PODFILE CHECKSUM: 0146df0484afc8fd26e526a5e8c0b04ba1f2272d
+PODFILE CHECKSUM: 53bc2ac8bc82eef033ea854dcf8f06c6d24d81d5
 
 COCOAPODS: 1.2.0

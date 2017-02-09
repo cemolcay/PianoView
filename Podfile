@@ -12,3 +12,8 @@ target 'PianoView macOS' do
   use_frameworks!
   pod 'MusicTheorySwift'
 end
+
+target 'PianoView TV' do
+  use_frameworks!
+  pod 'MusicTheorySwift'
+end
