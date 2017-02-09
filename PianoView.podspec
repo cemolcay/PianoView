@@ -114,7 +114,7 @@ Usage
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github/cemolcay/PianoView.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/cemolcay/PianoView.git", :tag => "#{s.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
