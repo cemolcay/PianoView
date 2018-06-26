@@ -158,10 +158,10 @@ import MusicTheorySwift
 #endif
 
 // MARK: - NoteType Extension
-internal extension NoteType {
+internal extension Key {
   internal var pianoKeyType: PianoKeyType {
-    switch self {
-    case .c, .d, .e, .f, .g, .a, .b:
+    switch accidental {
+    case .natural:
       return .white
     default:
       return .black
@@ -192,7 +192,7 @@ public enum PianoKeyType {
 
 // MARK: - PianoKeyLayer
 public class PianoKeyLayer: CALayer {
-  public var note: Note
+  public var note: Pitch
 
   public var isSelected = false
   public var isHighlighted = false
@@ -218,25 +218,25 @@ public class PianoKeyLayer: CALayer {
   public var textLayer = CATextLayer()
 
   public var type: PianoKeyType {
-    return note.type.pianoKeyType
+    return note.key.pianoKeyType
   }
 
   // MARK: Init
 
-  public init(note: Note) {
+  public init(note: Pitch) {
     self.note = note
     super.init()
     commonInit()
   }
 
   public required init?(coder aDecoder: NSCoder) {
-    note = Note(midiNote: 0)
+    note = Pitch(midiNote: 0)
     super.init(coder: aDecoder)
     commonInit()
   }
 
   public override init(layer: Any) {
-    note = Note(midiNote: 0)
+    note = Pitch(midiNote: 0)
     super.init(layer: layer)
     commonInit()
   }
@@ -246,7 +246,7 @@ public class PianoKeyLayer: CALayer {
     addSublayer(textLayer)
     textLayer.alignmentMode = kCAAlignmentCenter
     #if os(OSX)
-      textLayer.contentsScale = NSScreen.main()?.backingScaleFactor ?? 1
+      textLayer.contentsScale = NSScreen.main?.backingScaleFactor ?? 1
     #elseif os(iOS) || os(tvOS)
       textLayer.contentsScale = UIScreen.main.scale
     #endif
@@ -269,8 +269,8 @@ public class PianoKeyLayer: CALayer {
       textLayer.string = NSAttributedString(
         string: text,
         attributes: [
-          NSForegroundColorAttributeName: textColor,
-          NSFontAttributeName: font
+          NSAttributedStringKey(rawValue: "foregroundColor"): textColor,
+          NSAttributedStringKey(rawValue: "font"): font
         ])
 
       #if os(OSX)
@@ -320,7 +320,7 @@ public class PianoKeyLayer: CALayer {
   private func drawGradient(in ctx: CGContext) {
     let size: CGSize = bounds.size
 
-    if case .black = note.type.pianoKeyType {
+    if case .black = note.key.pianoKeyType {
       let fillColor = PVColor(red: 0.379, green: 0.379, blue: 0.379, alpha: 1)
       let strokeColor = PVColor(red: 0, green: 0, blue: 0, alpha: 0.951)
       let gradient1Colors = [strokeColor.cgColor, fillColor.cgColor]
@@ -544,12 +544,12 @@ public class PianoView: PVView {
 
   // MARK: Select
 
-  public func selectNote(note: Note) {
+  public func selectNote(note: Pitch) {
     pianoKeys.filter({ $0.note == note }).first?.isSelected = true
     draw()
   }
 
-  public func deselectNote(note: Note) {
+  public func deselectNote(note: Pitch) {
     pianoKeys.filter({ $0.note == note }).first?.isSelected = false
     draw()
   }
@@ -561,18 +561,18 @@ public class PianoView: PVView {
 
   // MARK: Highlight
 
-  public func highlightNote(note: Note) {
+  public func highlightNote(note: Pitch) {
     pianoKeys.filter({ $0.note == note }).first?.isHighlighted = true
     draw()
   }
 
-  public func unhighlightNote(note: Note) {
+  public func unhighlightNote(note: Pitch) {
     pianoKeys.filter({ $0.note == note }).first?.isHighlighted = false
     draw()
   }
 
-  public func highlightNoteType(noteType: NoteType) {
-    pianoKeys.filter({ $0.note.type == noteType }).forEach({ $0.isHighlighted = true })
+  public func highlightNoteType(noteType: Key) {
+    pianoKeys.filter({ $0.note.key == noteType }).forEach({ $0.isHighlighted = true })
   }
 
   public func unhighlightAll() {
@@ -589,7 +589,7 @@ public class PianoView: PVView {
     #endif
 
     pianoKeys.forEach({ $0.removeFromSuperlayer() })
-    let startNote = Note(type: .c, octave: startOctave)
+    let startNote = Pitch(key: Key(type: .c), octave: startOctave)
     pianoKeys = Array(0..<keyCount).map({ PianoKeyLayer(note: startNote + $0) })
     pianoKeys.filter({ $0.type == .white }).forEach({ layer.addSublayer($0) })
     pianoKeys.filter({ $0.type == .black }).forEach({ layer.addSublayer($0) })
@@ -671,7 +671,7 @@ public class PianoView: PVView {
       key.selectedTextColor = key.type == .black ? blackKeySelectedTextColor : whiteKeySelectedTextColor
       key.highlightedTextColor = key.type == .black ? blackKeyHighlightedTextColor : whiteKeyHighlightedTextColor
       key.textSize = key.type == .black ? blackKeyFontSize : whiteKeyFontSize
-      key.text = key.type == .black ? (drawNoteOctave ? "\(key.note)" : "\(key.note.type)") : (drawNoteOctave ? "\(key.note)" : "\(key.note.type)")
+      key.text = key.type == .black ? (drawNoteOctave ? "\(key.note)" : "\(key.note.key)") : (drawNoteOctave ? "\(key.note)" : "\(key.note.key)")
 
       // Setup options
       key.isDrawText = drawNoteText

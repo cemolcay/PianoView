@@ -1,12 +1,16 @@
 PODS:
-  - MusicTheorySwift (0.0.3)
+  - MusicTheorySwift (1.0.0)
 
 DEPENDENCIES:
   - MusicTheorySwift
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - MusicTheorySwift
+
 SPEC CHECKSUMS:
-  MusicTheorySwift: 8003df1bf5a905120629378712156ceebebfc7d5
+  MusicTheorySwift: 2102218ba959c04204f376d02f7719fe5f4cfb98
 
 PODFILE CHECKSUM: 4e0e46b00c483e6f1bc1d16fa19e11fb20a949d1
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.5.3

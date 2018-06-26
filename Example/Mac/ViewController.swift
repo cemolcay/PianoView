@@ -25,7 +25,7 @@ class ViewController: NSViewController {
     //let notes = NoteType.all.map({ Note(type: $0, octave: 0) })
     //let randomNote = notes[Int(arc4random_uniform(UInt32(notes.count)))]
     pianoView?.deselectAll()
-    pianoView?.selectNote(note: Note(type: .dFlat, octave: 0))
+    pianoView?.selectNote(note: Pitch(key: Key(type: .d, accidental: .flat), octave: 0))
   }
 
   override func keyUp(with event: NSEvent) {
