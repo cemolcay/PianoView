@@ -1,6 +1,6 @@
 PODS:
-  - MusicTheorySwift (1.0.0)
-  - PianoView (0.0.1):
+  - MusicTheorySwift (1.1.0)
+  - PianoView (0.0.2):
     - MusicTheorySwift
 
 DEPENDENCIES:
@@ -15,8 +15,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  MusicTheorySwift: 2102218ba959c04204f376d02f7719fe5f4cfb98
-  PianoView: 4a8fbad8dfabbfd7d066b4b23d32318b4b036a39
+  MusicTheorySwift: 555d61fc174c36c7cb1a41cf20b54628ba6b3e32
+  PianoView: 994ab2fc9aded5f3304303a56b1c5b055167fed0
 
 PODFILE CHECKSUM: 53bc2ac8bc82eef033ea854dcf8f06c6d24d81d5
 

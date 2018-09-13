@@ -1,5 +1,5 @@
 PODS:
-  - MusicTheorySwift (1.0.0)
+  - MusicTheorySwift (1.1.0)
 
 DEPENDENCIES:
   - MusicTheorySwift
@@ -9,7 +9,7 @@ SPEC REPOS:
     - MusicTheorySwift
 
 SPEC CHECKSUMS:
-  MusicTheorySwift: 2102218ba959c04204f376d02f7719fe5f4cfb98
+  MusicTheorySwift: 555d61fc174c36c7cb1a41cf20b54628ba6b3e32
 
 PODFILE CHECKSUM: 4e0e46b00c483e6f1bc1d16fa19e11fb20a949d1
 

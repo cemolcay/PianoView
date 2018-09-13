@@ -39,16 +39,16 @@ import MusicTheorySwift
       for i in 0 ..< self.elementCount {
         let type = self.element(at: i, associatedPoints: &points)
         switch type {
-        case .moveToBezierPathElement:
+        case .moveTo:
           path.move(to: CGPoint(x: points[0].x, y: points[0].y))
-        case .lineToBezierPathElement:
+        case .lineTo:
           path.addLine(to: CGPoint(x: points[0].x, y: points[0].y))
-        case .curveToBezierPathElement:
+        case .curveTo:
           path.addCurve(
             to: CGPoint(x: points[2].x, y: points[2].y),
             control1: CGPoint(x: points[0].x, y: points[0].y),
             control2: CGPoint(x: points[1].x, y: points[1].y))
-        case .closePathBezierPathElement:
+        case .closePath:
           path.closeSubpath()
         }
       }
@@ -244,7 +244,7 @@ public class PianoKeyLayer: CALayer {
   private func commonInit() {
     addSublayer(highlightLayer)
     addSublayer(textLayer)
-    textLayer.alignmentMode = kCAAlignmentCenter
+    textLayer.alignmentMode = CATextLayerAlignmentMode(rawValue: "center")
     #if os(OSX)
       textLayer.contentsScale = NSScreen.main?.backingScaleFactor ?? 1
     #elseif os(iOS) || os(tvOS)
@@ -269,8 +269,8 @@ public class PianoKeyLayer: CALayer {
       textLayer.string = NSAttributedString(
         string: text,
         attributes: [
-          NSAttributedStringKey(rawValue: "foregroundColor"): textColor,
-          NSAttributedStringKey(rawValue: "font"): font
+          NSAttributedString.Key(rawValue: "foregroundColor"): textColor,
+          NSAttributedString.Key(rawValue: "font"): font
         ])
 
       #if os(OSX)
